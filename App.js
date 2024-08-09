@@ -25,7 +25,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Profile name={status === true ? name : 'Anonymous'} age={count} />
+      <Profile name={status === true ? name : 'Anonymous'} age={status === true ? count : 0} />
       <Counter
         value={count}
         handleDecrement={handleDecrement}
