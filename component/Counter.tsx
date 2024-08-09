@@ -18,7 +18,7 @@ const Counter = ({
       {value}
       <Button title="Increment" onPress={handleIncrement} />
       <Button title="Decrement" onPress={handleDecrement} />
-      <Button title="Open Alert" onPress={handlePassValue} />
+      <Button title="Pass Value" onPress={handlePassValue} />
     </View>
   );
 };

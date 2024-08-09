@@ -5,6 +5,7 @@ import { useState } from "react";
 export default function App() {
   const [count, setCount] = useState(0);
   const [name, setName] = useState("");
+  const [status, setStatus] = useState(false);
 
   const handleIncrement = () => {
     setCount(count + 1);
@@ -18,13 +19,18 @@ export default function App() {
     setName(value);
   };
 
+  const handlePassValue = () => {
+    setStatus(!status);
+  };
+
   return (
     <View style={styles.container}>
-      <Profile name={name} age={count} />
+      <Profile name={status === true ? name : 'Anonymous'} age={count} />
       <Counter
         value={count}
         handleDecrement={handleDecrement}
         handleIncrement={handleIncrement}
+        handlePassValue={handlePassValue}
       />
       <TextInput
         onChange={(e) => handleChangeName(e.target.value)}
