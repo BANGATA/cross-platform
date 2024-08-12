@@ -1,4 +1,4 @@
-import { Button, View } from "react-native";
+import { Button, View, Text } from "react-native";
 
 interface ICounter {
   handleIncrement: () => void;
@@ -15,7 +15,7 @@ const Counter = ({
 }: ICounter) => {
   return (
     <View>
-      {value}
+      <Text>{value}</Text>
       <Button title="Increment" onPress={handleIncrement} />
       <Button title="Decrement" onPress={handleDecrement} />
       <Button title="Pass Value" onPress={handlePassValue} />
