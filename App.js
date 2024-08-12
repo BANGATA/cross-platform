@@ -33,7 +33,7 @@ export default function App() {
         handlePassValue={handlePassValue}
       />
       <TextInput
-        onChange={(e) => handleChangeName(e.target.value)}
+        onChangeText={handleChangeName}
         value={name}
         placeholder="Input your name here"
         style={styles.input}
