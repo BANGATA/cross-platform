@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Dimensions, Text } from "react-native";
+import { useEffect, useState } from "react";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -8,24 +8,45 @@ import Animated, {
 } from "react-native-reanimated";
 
 export default function App() {
-  const offset = useSharedValue(200);
+  const screenWidth = Dimensions.get("window").width;
+  const screenHeight = Dimensions.get("window").height;
+  const [orientation, setOrientation] = useState("potrait");
+  // const offset = useSharedValue(200);
 
-  const animatedStyles = useAnimatedStyle(() => ({
-    transform: [{ translateX: offset.value }],
-  }));
+  // const animatedStyles = useAnimatedStyle(() => ({
+  //   transform: [
+  //     orientation === "landscape"
+  //       ? { translateX: offset.value }
+  //       : { translateY: offset.value },
+  //   ],
+  // }));
 
-  React.useEffect(() => {
-    offset.value = withRepeat(
-      // highlight-next-line
-      withTiming(-offset.value, { duration: 1500 }),
-      -1,
-      true
-    );
-  }, []);
+  // useEffect(() => {
+  //   offset.value = withRepeat(
+  //     withTiming(-offset.value, { duration: 1500 }),
+  //     -1,
+  //     true
+  //   );
+  // }, []);
+
+  useEffect(() => {
+    const updateOrientation = () => {
+      const { width, height } = Dimensions.get("window");
+      if (width < height) {
+        setOrientation("potrait");
+      } else {
+        setOrientation("landscape");
+      }
+    };
+    Dimensions.addEventListener("change", updateOrientation);
+  });
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.box, animatedStyles]} />
+      <Text>Screen width: {screenWidth}</Text>
+      <Text>Screen height: {screenHeight}</Text>
+      <Text>Orientation: {orientation}</Text>
+      {/*<Animated.View style={[styles.box, animatedStyles]} /> */}
     </View>
   );
 }
