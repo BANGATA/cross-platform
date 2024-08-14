@@ -1,18 +1,22 @@
-import { StyleSheet, View, Text } from "react-native";
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Email from "./pages/Email";
+import HomeScreen from "./pages/HomeScreen";
+import UserList from "./pages/UserList";
+import Profile from "./pages/Profile";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Atanasius Raditya Herkristito - 0000044898</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Email" component={Email} />
+        <Stack.Screen name="UserList" component={UserList} />
+        <Stack.Screen name="Profile" component={Profile} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
-  },
-});
