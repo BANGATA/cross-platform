@@ -7,7 +7,6 @@ import Animated, {
   interpolate,
   Extrapolation,
   withTiming,
-  Easing,
 } from "react-native-reanimated";
 import { useEffect } from "react";
 
