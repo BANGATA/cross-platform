@@ -9,7 +9,7 @@ import {
   Image,
 } from "react-native";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
-
+const RNFS = require("react-native-fs");
 export default function App() {
   const [uri, setUri] = useState("");
   const openImagePicker = () => {
@@ -59,6 +59,16 @@ export default function App() {
     }
   };
 
+  const saveImage = async (uri, file_name) => {
+    const destPath = `${RNFS.PicturesDirectoryPath}/${file_name}`;
+    try {
+      await RNFS.copyFile(uri, destPath);
+      console.log("Success", "Image saved to gallery");
+    } catch (error) {
+      console.log("Error saving image:", error);
+    }
+  };
+
   const handleResponse = (response) => {
     if (response.didCancel) {
       console.log("User cancelled image picker");
@@ -66,10 +76,23 @@ export default function App() {
       console.log("Image picker error: ", response.error);
     } else if (response.assets && response.assets.length > 0) {
       const imageUri = response.assets[0].uri;
+      const imageName = response.assets[0].fileName;
+      saveImage(imageUri, imageName);
       setUri(imageUri);
     } else {
       console.log("No assets found in the response");
     }
+  };
+
+  const saveFile = async () => {
+    const path = RNFS.DownloadDirectoryPath + "/test.txt";
+    RNFS.writeFile(path, "Lorem ipsum dolor sit amet", "utf8")
+      .then((res) => {
+        console.log("Success create file. Check your download folder");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
@@ -85,7 +108,8 @@ export default function App() {
           }
         }}
       />
-      <Button title="Open Galery" onPress={openImagePicker} />
+      <Button title="Open Gallery" onPress={openImagePicker} />
+      <Button title="Create File" onPress={saveFile} />
       {uri && (
         <Image source={{ uri: uri }} style={{ width: 200, height: 200 }} />
       )}
