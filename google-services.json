@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "566975798958",
+    "project_id": "cross-platform-umn",
+    "storage_bucket": "cross-platform-umn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566975798958:android:10943fefc544eaa4be173f",
+        "android_client_info": {
+          "package_name": "com.crossplatform.umn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFxzXw5I4cog07fCG2iCgrLqoAgd_oX1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
