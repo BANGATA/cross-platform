@@ -15,13 +15,21 @@
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.crossplatform.umn"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "owner": "bangata",
+    "extra": {
+      "eas": {
+        "projectId": "9401cb1e-a7ca-4a99-bc7f-064bb715081f"
+      }
     }
   }
 }
