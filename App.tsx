@@ -1,27 +1,27 @@
 import { StyleSheet, View, Text, Button } from "react-native";
-import { Provider, useDispatch, useSelector } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { RootState, store } from "./utils/redux/store";
 import React from "react";
-import { decrement, increment } from "./utils/redux/slice/counter.slice";
+import { fetchPostsCount } from "./utils/redux/slice/counter.slice";
+import { useAppDispatch } from "./utils/hooks";
 
 const Counter = () => {
-  const currCount = useSelector((state: RootState) => state.counter.count);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const count = useSelector((state: RootState) => state.counter.count);
+  const status = useSelector((state: RootState) => state.counter.status);
+  const error = useSelector((state: RootState) => state.counter.error);
 
-  const handleIncrement = () => {
-    dispatch(increment());
-  };
-
-  const handleDecrement = () => {
-    dispatch(decrement());
+  const handleFetchPosts = () => {
+    dispatch(fetchPostsCount());
   };
 
   return (
     <View style={styles.container}>
       <Text>Atanasius Raditya Herkristito - 0000044898</Text>
-      <Text>Current count: {currCount}</Text>
-      <Button title="INCREMENT" onPress={handleIncrement} />
-      <Button title="DECREMENT" onPress={handleDecrement} />
+      {status === "loading" && <p>Loading...</p>}
+      {status === "failed" && <p>Error: {error}</p>}
+      <Text>Current count: {count}</Text>
+      <Button title="Fetch Data" onPress={handleFetchPosts} />
     </View>
   );
 };

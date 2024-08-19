@@ -1,12 +1,35 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 interface ICounter {
   count: number;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
 }
 
 const initialState: ICounter = {
   count: 0,
+  status: "idle",
+  error: null,
 };
+
+// Async thunk to fetch data from the API
+export const fetchPostsCount = createAsyncThunk(
+  "counterRedux/fetchPostsCount",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts"
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch posts");
+      }
+      const data = await response.json();
+      return data.length;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const counterSlice = createSlice({
   name: "counterRedux",
@@ -18,6 +41,20 @@ export const counterSlice = createSlice({
     decrement: (state) => {
       state.count -= 1;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchPostsCount.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchPostsCount.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.count += action.payload; // Increase the count by the number of posts fetched
+      })
+      .addCase(fetchPostsCount.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload as string;
+      });
   },
 });
 
