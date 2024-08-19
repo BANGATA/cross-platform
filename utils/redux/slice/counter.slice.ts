@@ -12,7 +12,6 @@ const initialState: ICounter = {
   error: null,
 };
 
-// Async thunk to fetch data from the API
 export const fetchPostsCount = createAsyncThunk(
   "counterRedux/fetchPostsCount",
   async (_, { rejectWithValue }) => {
@@ -49,7 +48,7 @@ export const counterSlice = createSlice({
       })
       .addCase(fetchPostsCount.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.count += action.payload; // Increase the count by the number of posts fetched
+        state.count += action.payload;
       })
       .addCase(fetchPostsCount.rejected, (state, action) => {
         state.status = "failed";
